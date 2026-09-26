@@ -26,7 +26,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
+
+import android.app.Activity
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,156 +55,84 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         mutableStateOf(0)
     }
 
-    Row (modifier = modifier.padding(1.dp).fillMaxWidth(), horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically) {
-        Column(modifier = Modifier.weight(1f)) {//padding(1.dp)) {
-            Text(
-                text = "Počet kliknutí 1: ",
-                //modifier = modifier
-            )
+    val popis = when {
+        count > 0 -> "Kladné číslo"
+        count < 0 -> "Záporné číslo"
+        else -> "Nula"
+    }
 
-            Text(
-                text = count.toString()
-            )
-/**/
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+    val absolutniHodnota = if (count < 0) {
+        -count
+    } else {
+        count
+    }
 
-                Button(
-                    onClick = {
-                        count = count + 1
-                    }
-                ) {
-                    Text("+1")
-                }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-                Button(
-                    onClick = {
-                        count = count - 1
-                    }
-                ) {
-                    Text("-1")
-                }
+        Text(
+            text = "Počet kliknutí"
+        )
+
+        Text(
+            text = count.toString()
+        )
+
+        Text(text = popis)
+        Text(text = "Absolutní hodnota: $absolutniHodnota")
+
+
+        CounterButtons(
+            onIncrement = {
+                count = count + 1
+            },
+            onDecrement = {
+                count = count - 1
             }
+        )
 
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = {
-                        count = count + 10
-                    }
-                ) {
-                    Text("+10")
-                }
 
-                Button(
-                    onClick = {
-                        count = count - 10
-                    }
-                ) {
-                    Text("-10")
-                }
+        Button(
+            //modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                count = 0
             }
+        ) {
+            Text("Reset")
+        }
+    }
+}
 
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = {
-                        count = 0
-                    }
-                ) {
-                    Text("0")
-                }
+@Composable
+fun CounterButtons(
+    onIncrement: () -> Unit,
+    onDecrement: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+
+        Button(
+            modifier = Modifier.weight(1f),
+            onClick = {
+                onDecrement()
             }
-
- /**/
+        ) {
+            Text("-1")
         }
 
-        Column(modifier = Modifier.weight(1f)) {//padding(1.dp)) {
-            Text(
-                text = "Počet kliknutí 2: ",
-                //modifier = modifier
-            )
-
-            Text(
-                text = count.toString()
-            )
-/**/
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Button(
-                    onClick = {
-                        count = count + 1
-                    }
-                ) {
-                    Text("+1")
-                }
-
-                Button(
-                    onClick = {
-                        count = count - 1
-                    }
-                ) {
-                    Text("-1")
-                }
+        Button(
+            modifier = Modifier.weight(1f),
+            onClick = {
+                onIncrement()
             }
-
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = {
-                        count = count + 10
-                    }
-                ) {
-                    Text("+10")
-                }
-
-                Button(
-                    onClick = {
-                        count = count - 10
-                    }
-                ) {
-                    Text("-10")
-                }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(20.dp).background(Color.LightGray)
-                    .height(150.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = {
-                        count = 0
-                    }
-                ) {
-                    Text("0")
-                }
-            }
-
- /**/
+        ) {
+            Text("+1")
         }
     }
 }
