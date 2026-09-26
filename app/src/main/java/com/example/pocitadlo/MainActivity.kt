@@ -74,7 +74,6 @@ fun CounterScreen(modifier: Modifier = Modifier) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Text(
             text = "Počet kliknutí"
         )
@@ -86,7 +85,6 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         Text(text = popis)
         Text(text = "Absolutní hodnota: $absolutniHodnota")
 
-
         CounterButtons(
             onIncrement = {
                 count = count + 1
@@ -96,7 +94,12 @@ fun CounterScreen(modifier: Modifier = Modifier) {
             }
         )
 
-
+        ResetButton(
+            onReset = {
+                count = 0
+            }
+        )
+/*
         Button(
             //modifier = Modifier.fillMaxWidth(),
             onClick = {
@@ -105,6 +108,7 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         ) {
             Text("Reset")
         }
+ */
     }
 }
 
@@ -116,7 +120,6 @@ fun CounterButtons(
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
-
         Button(
             modifier = Modifier.weight(1f),
             onClick = {
@@ -133,6 +136,23 @@ fun CounterButtons(
             }
         ) {
             Text("+1")
+        }
+    }
+}
+
+@Composable
+fun ResetButton(
+    onReset: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth().background(Color.LightGray), Arrangement.Center
+    ) {
+        Button(
+            onClick = {
+                onReset()
+            }
+        ) {
+            Text("Reset")
         }
     }
 }
