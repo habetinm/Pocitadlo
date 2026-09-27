@@ -26,8 +26,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
-
 import android.app.Activity
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -72,18 +73,27 @@ fun CounterScreen(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .statusBarsPadding()
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
         Text(
-            text = "Počet kliknutí"
+            text = "Počet kliknutí", modifier = Modifier.padding(bottom = 20.dp)
+        )
+
+        Spacer(
+            modifier = Modifier.fillMaxWidth().height(8.dp).background(Color.Yellow)
         )
 
         Text(
-            text = count.toString()
+            text = count.toString(), modifier = Modifier.padding(20.dp)
+            //text = count.toString(), modifier = Modifier.background(Color.Yellow).padding(20.dp)
         )
 
         Text(text = popis)
         Text(text = "Absolutní hodnota: $absolutniHodnota")
+
+        Spacer(
+            modifier = Modifier.height(40.dp)
+        )
 
         CounterButtons(
             onIncrement = {
@@ -109,6 +119,17 @@ fun CounterScreen(modifier: Modifier = Modifier) {
             Text("Reset")
         }
  */
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("A", modifier = Modifier.align(Alignment.TopStart))
+            Text("B")
+            Text("C", modifier = Modifier.align(Alignment.BottomEnd))
+        }
     }
 }
 
@@ -118,7 +139,7 @@ fun CounterButtons(
     onDecrement: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(0.8f), horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Button(
             modifier = Modifier.weight(1f),
