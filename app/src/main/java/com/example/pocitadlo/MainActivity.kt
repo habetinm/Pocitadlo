@@ -89,7 +89,7 @@ fun CounterScreen(modifier: Modifier = Modifier) {
             //text = count.toString(), modifier = Modifier.background(Color.Yellow).padding(20.dp)
         )
 
-        Text(text = popis)
+        Text(text = popis, fontSize = 24.sp)
         Text(text = "Absolutní hodnota: $absolutniHodnota")
 
         Spacer(
