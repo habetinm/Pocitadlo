@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +85,7 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         )
 
         Text(
-            text = count.toString(), modifier = Modifier.padding(20.dp)
+            text = count.toString(), modifier = Modifier.padding(20.dp), fontSize = 48.sp
             //text = count.toString(), modifier = Modifier.background(Color.Yellow).padding(20.dp)
         )
 
