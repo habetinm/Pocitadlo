@@ -69,10 +69,11 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         count
     }
 
+    val jeSude = count % 2 == 0
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .statusBarsPadding()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
@@ -85,18 +86,23 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         )
 
         Text(
-            text = count.toString(), modifier = Modifier.padding(20.dp), fontSize = 48.sp
+            text = count.toString(), fontSize = 48.sp
             //text = count.toString(), modifier = Modifier.background(Color.Yellow).padding(20.dp)
         )
 
         Text(text = popis, fontSize = 24.sp)
         Text(text = "Absolutní hodnota: $absolutniHodnota")
+        Text(
+            fontSize = 24.sp,
+            text = if (jeSude) "Sudé číslo" else "Liché číslo"
+        )
 
         Spacer(
             modifier = Modifier.height(40.dp)
         )
 
         CounterButtons(
+            modifier = Modifier.padding(horizontal = 50.dp),
             onIncrement = {
                 count = count + 1
             },
@@ -106,6 +112,7 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         )
 
         ResetButton(
+            modifier = Modifier.padding(top = 20.dp),
             onReset = {
                 count = 0
             }
@@ -137,10 +144,11 @@ fun CounterScreen(modifier: Modifier = Modifier) {
 @Composable
 fun CounterButtons(
     onIncrement: () -> Unit,
-    onDecrement: () -> Unit
+    onDecrement: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(0.8f), horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.fillMaxWidth(0.8f), horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Button(
             modifier = Modifier.weight(1f),
@@ -164,12 +172,14 @@ fun CounterButtons(
 
 @Composable
 fun ResetButton(
-    onReset: () -> Unit
+    onReset: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().background(Color.LightGray), Arrangement.Center
+        modifier = modifier.fillMaxWidth().background(Color.LightGray), Arrangement.Center
     ) {
         Button(
+            modifier = modifier,
             onClick = {
                 onReset()
             }
