@@ -52,8 +52,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CounterScreen(modifier: Modifier = Modifier) {
-
+    println("CounterScreen")
     var count by remember {
+        println("Vytvářím State")
         mutableStateOf(0)
     }
 
